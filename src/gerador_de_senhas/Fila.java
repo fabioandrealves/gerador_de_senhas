@@ -2,36 +2,35 @@ package gerador_de_senhas;
 
 
 class Fila {
-    private No proximo, anterior;
+    private No inico, fim;
     private int tamanho;
 
     public boolean estaVazia() {
-        return proximo == null;
+        return inico == null;
     }
 
     public void inserir(Senha senha) {
         No novoNo = new No(senha);
-        if (anterior == null) {
-            proximo = anterior;
-            anterior = novoNo;
+        if (fim == null) {
+            inico = fim = novoNo;
         } else {
-            anterior.setProximo(novoNo);
-            anterior = novoNo;
+            fim.setProximo(novoNo);
+            fim = novoNo;
         }
         tamanho++;
     }
 
     public Senha remover() {
         if (estaVazia()) return null;
-        Senha senha = proximo.getSenha();
-        proximo = proximo.getProximo();
-        if (proximo == null) anterior = null;
+        Senha senha = inico.getSenha();
+        inico = inico.getProximo();
+        if (inico == null) fim = null;
         tamanho--;
         return senha;
     }
 
     public void listar() {
-        No temp = proximo;
+        No temp = inico;
         while (temp != null) {
             System.out.println("Senha: " + temp.getSenha().getNumero() + " - Tipo: " + temp.getSenha().getTipo());
             temp = temp.getProximo();
